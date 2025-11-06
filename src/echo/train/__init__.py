@@ -1,5 +1,6 @@
 from echo.train.config import ExperimentConfig, TrainingConfig, ModelConfig, DataConfig
 from echo.train.train import train
+from echo.train.utility import analyse_dataset
 
 __all__ = [
     "ExperimentConfig",
@@ -7,4 +8,5 @@ __all__ = [
     "ModelConfig",
     "DataConfig",
     "train"
+    "analyse_dataset",
 ]
