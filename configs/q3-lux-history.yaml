@@ -1,0 +1,12 @@
+name: qwen3_luxembourgish_history
+
+model:
+  name: Qwen/Qwen3-4B
+
+data:
+  language: luxembourgish
+  use_history: true
+  use_bio: false
+
+training:
+  output_dir: ../../models
