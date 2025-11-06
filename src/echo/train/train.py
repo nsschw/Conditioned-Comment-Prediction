@@ -10,10 +10,15 @@ from datetime import datetime
 import dotenv
 import os
 
+
+from echo.train.utility import analyse_dataset
 from echo.train.config import ExperimentConfig
 
 def train(config: ExperimentConfig):
     """Main training function"""
+
+    # Analyse dataset token lengths
+    analyse_dataset(config.model.name, config.data.train_file)
     
     # Create output directory with timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -21,11 +26,9 @@ def train(config: ExperimentConfig):
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Load and initialize wandb
-
     ENV = dotenv.dotenv_values("../" * 2 + ".env")
-    wandb.login(ENV["WANDB_TOKEN"])
+    wandb.login(key=ENV["WANDB_TOKEN"])
     os.environ["WANDB_PROJECT"] = "echo-v1.0"
-
 
     # Save config
     config.to_yaml(output_dir / "config.yaml")
@@ -62,12 +65,14 @@ def train(config: ExperimentConfig):
         lr_scheduler_type=config.training.lr_scheduler_type,
         warmup_ratio=config.training.warmup_ratio,
         optim=config.training.optim,
+        assistant_only_loss=config.model.assistant_only_loss,
+        bf16=config.model.bf16,
+
 
         eval_strategy="no",
         save_strategy="no",
         logging_steps=25,
-        assistant_only_loss=True,
-        bf16=True,
+
         report_to="wandb",
         run_name=config.name,
     )
@@ -77,7 +82,7 @@ def train(config: ExperimentConfig):
         model=model,
         args=training_args,
         train_dataset=train_dataset,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
     )
     
     # Train
@@ -90,13 +95,13 @@ def train(config: ExperimentConfig):
     print(f"Training complete. Results saved to {output_dir}")
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--config", type=str, required=True, help="Path to config YAML file")
+    parser.add_argument("--config", type=str, required=True)
     args = parser.parse_args()
     
-    # Load config
     config = ExperimentConfig.from_yaml(args.config)
-
-    # Train
     train(config)
+
+if __name__ == "__main__":
+    main()

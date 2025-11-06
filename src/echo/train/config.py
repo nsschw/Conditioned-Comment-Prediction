@@ -17,7 +17,7 @@ class DataConfig:
     use_history: bool
  
     def __post_init__(self):
-        base_path = Path("data")
+        base_path = Path("../../data/processed")
 
         # Language-specific training files
         if self.language == "english":
@@ -39,20 +39,18 @@ class DataConfig:
 @dataclass
 class TrainingConfig:
     output_dir: str = "../../models"
-    max_length: int = 5120
+    max_length: int = 10_000
     num_train_epochs: int = 1
     per_device_train_batch_size: int = 1
     per_device_eval_batch_size: int = 1
     gradient_accumulation_steps: int = 8
     learning_rate: float = 2e-5
-    lr_scheduler_type: str = "cosine",
+    lr_scheduler_type: str = "cosine"
     warmup_ratio: float = 0.1
-    
-    # Optimization
+    bf16: bool = True
+    assistant_only_loss: bool = False
     optim: str = "paged_adamw_32bit"
     
-
-
 
 
 @dataclass
