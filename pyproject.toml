@@ -1,7 +1,11 @@
 [project]
 name = "echo"
 version = "0.1.0"
-description = "Add your description here"
+description = "Your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
+
+
+[project.scripts]
+echo-train = "echo.train.train:main"
