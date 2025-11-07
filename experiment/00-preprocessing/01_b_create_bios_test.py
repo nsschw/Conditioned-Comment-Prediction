@@ -28,8 +28,8 @@ german_comments = random.sample(german_comments, 650)
 luxembourgish_comments = random.sample(luxembourgish_comments, 650)
 english_comments = random.sample(english_comments, 650)
 
-for comment in tqdm.tqdm(luxembourgish_comments[:5]):
-    history_str = parse_history(comment["messages"])
+for comment in tqdm.tqdm(luxembourgish_comments):
+    history_str = parse_history(comment["messages"][:-2]) # Remove last 2 messages because we test on them
     prompt = PROFILER_PROMPT.format(content=history_str)
     response = PROFILER_LLM.generate([{"role": "user", "content": prompt}])
     comment["bio"] = response
@@ -37,8 +37,8 @@ for comment in tqdm.tqdm(luxembourgish_comments[:5]):
     json.dump(luxembourgish_comments, open("../../data/intermediate/lux_30-shot_test_with_bios.json", "w", encoding="utf-8"))
 
 
-for comment in tqdm.tqdm(german_comments[:5]):
-    history_str = parse_history(comment["messages"])
+for comment in tqdm.tqdm(german_comments):
+    history_str = parse_history(comment["messages"][:-2]) # Remove last 2 messages because we test on them
     prompt = PROFILER_PROMPT.format(content=history_str)
     response = PROFILER_LLM.generate([{"role": "user", "content": prompt}])
     comment["bio"] = response
@@ -46,8 +46,8 @@ for comment in tqdm.tqdm(german_comments[:5]):
     json.dump(german_comments, open("../../data/intermediate/ger_30-shot_test_with_bios.json", "w", encoding="utf-8"))
 
 
-for comment in tqdm.tqdm(english_comments[:5]):
-    history_str = parse_history(comment["messages"])
+for comment in tqdm.tqdm(english_comments):
+    history_str = parse_history(comment["messages"][:-2]) # Remove last 2 messages because we test on them
     prompt = PROFILER_PROMPT.format(content=history_str)
     response = PROFILER_LLM.generate([{"role": "user", "content": prompt}])
     comment["bio"] = response
