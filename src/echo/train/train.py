@@ -65,10 +65,10 @@ def train(config: ExperimentConfig):
         lr_scheduler_type=config.training.lr_scheduler_type,
         warmup_ratio=config.training.warmup_ratio,
         optim=config.training.optim,
-        assistant_only_loss=config.model.assistant_only_loss,
-        bf16=config.model.bf16,
+        assistant_only_loss=config.training.assistant_only_loss,
+        bf16=config.training.bf16,
 
-
+        gradient_checkpointing=True,
         eval_strategy="no",
         save_strategy="no",
         logging_steps=25,
