@@ -7,8 +7,6 @@ import pandas as pd
 import json
 
 
-
-
 class Model():
     """
     A class for loading and using a base language model without fine-tuning.
