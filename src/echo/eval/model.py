@@ -56,6 +56,7 @@ class Model():
         outputs = self.pipe(
             prompts,
             return_full_text=False,
+            do_sample=False,
             max_new_tokens=200,
         )
         generated_texts = [output[0]["generated_text"] for output in outputs]
