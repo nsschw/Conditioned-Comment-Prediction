@@ -21,14 +21,13 @@ class DataConfig:
 
         # Language-specific training files
         if self.language == "english":
-            self.train_file = str(base_path / "eng_30-shot_train.json")
+            self.train_file = str(base_path / "eng_train.json")
         elif self.language == "german":
-            self.train_file = str(base_path / "ger_30-shot_train.json")
+            self.train_file = str(base_path / "ger_train.json")
         elif self.language == "luxembourgish":
-            self.train_file = str(base_path / "lux_30-shot_train.json")
+            self.train_file = str(base_path / "lux_train.json")
         elif self.language == "mixed":
-            self.train_file = str(base_path / "mixed_30-shot_train.json")
-
+            self.train_file = str(base_path / "mixed_train.json")
         # Modify filename based on use_bio and use_history
         if self.use_bio:
             self.train_file = self.train_file.replace(".json", "_bio.json")
