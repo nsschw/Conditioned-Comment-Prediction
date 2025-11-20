@@ -5,7 +5,6 @@ from tqdm import tqdm
 import pandas as pd
 import json
 
-
 class Model():
     """
     A class for loading and using a base language model without fine-tuning.
@@ -32,20 +31,21 @@ class Model():
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             trust_remote_code=True,
-            device_map="cuda:0",
+            device_map="cuda:3",
             dtype = "auto",
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side='left')
         # Create a pipeline for generation
-        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=6)
+        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=4)
+        self.pipe.tokenizer.pad_token_id = self.model.config.eos_token_id
         
 
-    def generate(self, prompt) -> str:
+    def generate(self, prompts) -> str:
         """
-        Generate a text response for a given chat prompt.
+        Generate a text response for a list of chat messages.
         
         Args:
-            prompt: A list of dictionaries representing a chat conversation,
+            prompts: A list of dictionaries representing a chat conversation,
                    where each dict has 'role' and 'content' keys.
         
         Returns:
@@ -54,7 +54,7 @@ class Model():
         
         # Generate text using the pipeline
         outputs = self.pipe(
-            prompt,
+            prompts,
             return_full_text=False,
             max_new_tokens=200,
         )
