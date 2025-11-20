@@ -36,7 +36,7 @@ class Model():
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side='left')
         # Create a pipeline for generation
-        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=4)
+        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=3)
         self.pipe.tokenizer.pad_token_id = self.model.config.eos_token_id
         
 
