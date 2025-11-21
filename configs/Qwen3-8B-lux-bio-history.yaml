@@ -5,7 +5,7 @@ model:
 data:
   language: luxembourgish
   use_history: true
-  use_bio: true
+  use_bio: false
 
 training:
   output_dir: "../../models"
