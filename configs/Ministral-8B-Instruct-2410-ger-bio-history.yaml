@@ -1,0 +1,13 @@
+name: "Ministral-8B-Instruct-2410-ger-bio-history"
+
+model:
+  name: mistralai/Ministral-8B-Instruct-2410
+data:
+  language: german
+  use_history: true
+  use_bio: true
+
+training:
+  output_dir: "../../models"
+  max_length: 4500
+  optim: "paged_adamw_8bit"

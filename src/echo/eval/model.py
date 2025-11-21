@@ -16,7 +16,7 @@ class Model():
     
     Example:
         >>> model = BaseModel("microsoft/Phi-4-mini-instruct")
-        >>> response = model.generate([{"role": "user", "content": "Hello!"}])
+        >>> response = model.generate([[{"role": "user", "content": "Hello, how are you?"}]])
     """
 
     def __init__(self, model_name: str):
@@ -25,13 +25,12 @@ class Model():
         
         Args:
             model_name: The name or path of the pre-trained model.
-            bnb_config: Optional BitsAndBytes configuration for quantization.
         """
         # Load model and tokenizer directly
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             trust_remote_code=True,
-            device_map="cuda:3",
+            device_map="auto",
             dtype = "auto",
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side='left')

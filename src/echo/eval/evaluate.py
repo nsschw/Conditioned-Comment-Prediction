@@ -31,7 +31,7 @@ def evaluate(predictions_path: str):
         json.dump(metrics, f, indent=2)
     
     print(f"{predictions_path.parent.name}:")
-    print(f"  BLEU: {metrics['bleu']:.4f}")
+    print(f"  BLEU: {metrics['bleu']["bleu"]:.4f}")
     print(f"  Embedding Distance: {metrics['embedding_distance']:.4f}")
     
     return metrics
