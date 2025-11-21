@@ -1,4 +1,4 @@
-name: "Ministral-8B-Instruct-2410-lux-bio-history"
+name: "Ministral-8B-Instruct-2410-lux-history"
 
 model:
   name: mistralai/Ministral-8B-Instruct-2410

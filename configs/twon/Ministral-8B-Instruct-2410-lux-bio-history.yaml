@@ -1,11 +1,11 @@
-name: "Qwen3-8B-lux-bio-history"
+name: "Ministral-8B-Instruct-2410-lux-bio-history"
 
 model:
-  name: Qwen/Qwen3-8B
+  name: mistralai/Ministral-8B-Instruct-2410
 data:
   language: luxembourgish
   use_history: true
-  use_bio: false
+  use_bio: true
 
 training:
   output_dir: "../../models"

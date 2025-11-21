@@ -1,11 +1,11 @@
-name: "Llama-3.1-8B-Instruct-lux-bio-history"
+name: "Qwen3-8B-lux-bio-history"
 
 model:
-  name: meta-llama/Llama-3.1-8B-Instruct
+  name: Qwen/Qwen3-8B
 data:
   language: luxembourgish
   use_history: true
-  use_bio: false
+  use_bio: true
 
 training:
   output_dir: "../../models"

@@ -1,0 +1,13 @@
+name: "Llama-3.1-8B-Instruct-lux-bio-history"
+
+model:
+  name: meta-llama/Llama-3.1-8B-Instruct
+data:
+  language: luxembourgish
+  use_history: true
+  use_bio: true
+
+training:
+  output_dir: "../../models"
+  max_length: 4500
+  optim: "paged_adamw_8bit"
