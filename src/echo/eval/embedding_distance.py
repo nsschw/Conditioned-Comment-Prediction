@@ -16,17 +16,16 @@ class EmbeddingDistance:
         self.model = SentenceTransformer(model_name)
         
         
-    def __call__(self, source: list[str], target: list[str], return_mean=True):
+    def __call__(self, source: list[str], target: list[str]) -> dict:
         """
         Calculate semantic distance between source and target texts.
         
         Args:
             source: List of source/reference texts
             target: List of target/generated texts
-            return_mean: Return mean distance (True) or all distances (False)
             
         Returns:
-            Mean distance or list of individual distances
+            Dictionary with mean and standard deviation of distances
         """
         # Process in batches for memory efficiency
         batch_size = 256
@@ -46,7 +45,9 @@ class EmbeddingDistance:
             distances.extend(cos_distance)
 
         
-        if return_mean:
-            return float(np.mean(distances))
-        else:
-            return [float(d) for d in distances]
+        mean = float(np.mean(distances))
+        std = float(np.std(distances))
+        return {
+            "mean_distance": mean,
+            "std_distance": std
+        }

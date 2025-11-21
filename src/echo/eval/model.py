@@ -19,7 +19,7 @@ class Model():
         >>> response = model.generate([[{"role": "user", "content": "Hello, how are you?"}]])
     """
 
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str, batch_size: int = 3):
         """
         Initialize a base model without fine-tuning.
         
@@ -34,12 +34,13 @@ class Model():
             dtype = "auto",
         )
         self.tokenizer = AutoTokenizer.from_pretrained(model_name, padding_side='left')
+        
         # Create a pipeline for generation
-        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=3)
+        self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=batch_size)
         self.pipe.tokenizer.pad_token_id = self.model.config.eos_token_id
         
 
-    def generate(self, prompts) -> str:
+    def generate(self, prompts, **kwargs) -> str:
         """
         Generate a text response for a list of chat messages.
         
@@ -55,8 +56,7 @@ class Model():
         outputs = self.pipe(
             prompts,
             return_full_text=False,
-            do_sample=False,
-            max_new_tokens=200,
+            **kwargs
         )
         generated_texts = [output[0]["generated_text"] for output in outputs]
         return generated_texts
