@@ -28,7 +28,7 @@ class EmbeddingDistance:
             Dictionary with mean and standard deviation of distances
         """
         # Process in batches for memory efficiency
-        batch_size = 256
+        batch_size = 20
         distances = []
         
         for i in range(0, len(source), batch_size):

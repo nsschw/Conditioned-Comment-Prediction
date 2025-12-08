@@ -37,7 +37,8 @@ class Model():
         
         # Create a pipeline for generation
         self.pipe = pipeline("text-generation", model=self.model, tokenizer=self.tokenizer, batch_size=batch_size)
-        self.pipe.tokenizer.pad_token_id = self.model.config.eos_token_id
+        if self.tokenizer.pad_token_id is None:
+            self.pipe.tokenizer.pad_token_id = self.tokenizer.eos_token_id
         
 
     def generate(self, prompts, **kwargs) -> str:

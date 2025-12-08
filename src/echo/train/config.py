@@ -48,6 +48,7 @@ class TrainingConfig:
     warmup_ratio: float = 0.1
     bf16: bool = True
     assistant_only_loss: bool = False
+    completion_only_loss: bool = False
     optim: str = "paged_adamw_32bit"
     
 

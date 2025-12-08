@@ -66,6 +66,7 @@ def train(config: ExperimentConfig):
         warmup_ratio=config.training.warmup_ratio,
         optim=config.training.optim,
         assistant_only_loss=config.training.assistant_only_loss,
+        completion_only_loss=config.training.completion_only_loss,  
         bf16=config.training.bf16,
 
         gradient_checkpointing=True,
