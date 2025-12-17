@@ -38,3 +38,19 @@ for model_name, model_path in zip(model_names, model_paths):
     generate(model_path=model_path, model_name=model_name, output_path="../../outputs", test_data_path=test_data, disable_reasoning=False, **generation_kwargs)
     torch.cuda.empty_cache()
     gc.collect()
+
+
+model_paths = [
+    "../../models/Llama-3.1-8B-Instruct-eng-base/20251209_125002/final",
+    "meta-llama/Llama-3.1-8B-Instruct",
+]
+model_names = [
+    "Llama-3.1-8B-Instruct-eng-base",
+    "Llama-3.1-8B-Instruct",
+]
+test_data = "../../data/processed/eng_test.json"
+
+for model_name, model_path in zip(model_names, model_paths):
+    generate(model_path=model_path, model_name=model_name, output_path="../../outputs", test_data_path=test_data, disable_reasoning=False, batch_size=48, **generation_kwargs)
+    torch.cuda.empty_cache()
+    gc.collect()

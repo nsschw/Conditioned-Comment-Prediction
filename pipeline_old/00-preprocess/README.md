@@ -1,1 +1,0 @@
-The WASSA pipeline processes data that has been preprocessed by the TWON Pipeline.
